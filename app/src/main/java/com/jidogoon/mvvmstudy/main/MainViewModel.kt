@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.jidogoon.mvvmstudy.data.Photo
 import com.jidogoon.mvvmstudy.repo.IRepository
 
-class MainViewModel(private val repository: IRepository): ViewModel() {
+class MainViewModel(repository: IRepository): ViewModel() {
     enum class ViewStatus {
         NOT_SET,
         LOADING,
