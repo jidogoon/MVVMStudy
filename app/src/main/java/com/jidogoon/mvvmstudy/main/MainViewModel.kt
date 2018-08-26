@@ -5,10 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.jidogoon.mvvmstudy.data.Photo
 import com.jidogoon.mvvmstudy.repo.IRepository
 
-class MainViewModel(repository: IRepository): ViewModel() {
+class MainViewModel(private val repository: IRepository): ViewModel() {
     enum class ViewStatus {
         NOT_SET,
-        LOADING,
         DONE,
         ERROR
     }
@@ -17,10 +16,13 @@ class MainViewModel(repository: IRepository): ViewModel() {
         value = ViewStatus.NOT_SET
     }
 
-    private val photos = MutableLiveData<List<Photo>>()
+    val isLoading = MutableLiveData<Boolean>()
 
-    private val onPhotosReady = { photos: List<Photo> ->
-        this.photos.postValue(photos)
+    private val photos = MutableLiveData<MutableList<Photo>>()
+
+    private val onPhotosReady = { photosResult: MutableList<Photo> ->
+        photos.postValue(photosResult)
+        isLoading.postValue(false)
         viewStatus.postValue(ViewStatus.DONE)
     }
 
@@ -29,12 +31,24 @@ class MainViewModel(repository: IRepository): ViewModel() {
         error.printStackTrace()
     }
 
+    // for adapter
     fun getPhotosCount(): Int = photos.value?.size ?: 0
 
+    // for adapter
     fun getPhotoItem(position: Int): Photo? = photos.value?.get(position)
 
-    init {
-        viewStatus.postValue(ViewStatus.LOADING)
+    private fun getPhotos() {
+        isLoading.value = true
         repository.getPhotos(onPhotosReady, onRepositoryError)
+    }
+
+    fun refreshPhotos() {
+        photos.value?.clear()
+        viewStatus.postValue(ViewStatus.DONE)
+        getPhotos()
+    }
+
+    init {
+        getPhotos()
     }
 }

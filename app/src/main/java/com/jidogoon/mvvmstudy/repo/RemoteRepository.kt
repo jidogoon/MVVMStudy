@@ -5,10 +5,10 @@ import com.jidogoon.mvvmstudy.data.Photo
 import kotlinx.coroutines.experimental.launch
 
 class RemoteRepository: IRepository {
-    override fun getPhotos(onReady: (List<Photo>) -> Unit, onError: (Throwable) -> Unit) {
+    override fun getPhotos(onReady: (MutableList<Photo>) -> Unit, onError: (Throwable) -> Unit) {
         launch {
             try {
-                val result = TypiCodeApi.getService().getPhotos().await()
+                val result = TypiCodeApi.getService().getPhotos().await().toMutableList()
                 onReady(result)
             } catch (e: Exception) {
                 onError(e)

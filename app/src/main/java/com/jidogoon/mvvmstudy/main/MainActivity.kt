@@ -29,11 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val statusObserver = Observer<MainViewModel.ViewStatus> { status ->
         when(status) {
-            ViewStatus.LOADING -> loading.show()
-            ViewStatus.DONE -> {
-                loading.hide()
-                mainRecyclerView.adapter?.notifyDataSetChanged()
-            }
+            ViewStatus.DONE -> mainRecyclerView.adapter?.notifyDataSetChanged()
             ViewStatus.ERROR -> Toast.makeText(MainActivity@this, R.string.error, Toast.LENGTH_SHORT).show()
             else -> {}
         }
