@@ -1,13 +1,13 @@
 package com.jidogoon.mvvmstudy.repo
 
-import com.jidogoon.mvvmstudy.api.TypiCodeRemoteService
+import com.jidogoon.mvvmstudy.api.TypiCodeApi
 import com.jidogoon.mvvmstudy.data.Photo
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 class RemoteRepository: BaseRepository(), IRepository {
     @Inject
-    lateinit var typiCodeApi: TypiCodeRemoteService
+    lateinit var typiCodeApi: TypiCodeApi
 
     override fun getPhotos(onReady: (MutableList<Photo>) -> Unit, onError: (Throwable) -> Unit) {
         launch {

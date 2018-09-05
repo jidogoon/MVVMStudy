@@ -3,7 +3,7 @@ package com.jidogoon.mvvmstudy.di
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.jidogoon.mvvmstudy.BuildConfig
-import com.jidogoon.mvvmstudy.api.TypiCodeRemoteService
+import com.jidogoon.mvvmstudy.api.TypiCodeApi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -19,8 +19,8 @@ object RetrofitModule {
     @Provides
     @Reusable
     @Suppress("unused")
-    internal fun provideTypiCodeApi(retrofit: Retrofit): TypiCodeRemoteService {
-        return retrofit.create(TypiCodeRemoteService::class.java)
+    internal fun provideTypiCodeApi(retrofit: Retrofit): TypiCodeApi {
+        return retrofit.create(TypiCodeApi::class.java)
     }
 
     @Provides

@@ -5,7 +5,7 @@ import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface TypiCodeRemoteService {
+interface TypiCodeApi {
     @GET("photos")
     fun getPhotos(): Deferred<List<Photo>>
 
